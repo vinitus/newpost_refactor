@@ -5,9 +5,11 @@ export default async function newpostAPI(recipeCreateReq, stepImgFile) {
   const stemNums = [];
 
   stepImgFile.forEach((file, fileIdx) => {
-    if (file && fileIdx != 0) {
+    if (file) {
       data.append('file', file);
-      stemNums.push(fileIdx);
+      if (fileIdx != 0) {
+        stemNums.push(fileIdx);
+      }
     }
   });
 
