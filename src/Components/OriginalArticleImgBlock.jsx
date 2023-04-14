@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 
 /** @params division, size, text */
-const ArticleImgBlock = (props) => {
+const OriginalArticleImgBlock = (props) => {
   const [previewImgSrc, setPreviewImgSrc] = useState('');
   const { division, width, height, text, setRef, fileSet, setStepNums } = props;
 
@@ -108,4 +108,4 @@ const ArticleImgBlock = (props) => {
   );
 };
 
-export default ArticleImgBlock;
+export default OriginalArticleImgBlock;
