@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.grey-underbar {
+  border-bottom-width: 1px;
+  border-style: solid;
+  border-color: #aeafae;
+}
+
+input {
+  @apply focus:outline-none;
+}
+
+textarea {
+  @apply focus:outline-none;
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
