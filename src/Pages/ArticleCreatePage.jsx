@@ -49,6 +49,7 @@ const ArticleCreatePage = () => {
 
   const subTitle = 'font-semibold mb-24';
   const [orderArr, setOrderArr] = useState([1]);
+  const [thumbnailImgFile, setThumbnailImgFile] = useState(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [cookingTime, setCookingTime] = useState(0);
