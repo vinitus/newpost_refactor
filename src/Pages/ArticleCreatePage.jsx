@@ -16,7 +16,9 @@ const ArticleCreatePage = () => {
       stepNums,
     };
 
-    newpostAPI(jsonData, thumbnailImgFile, stepImgFile)
+    console.log(stepImgFile);
+
+    newpostAPI(jsonData, stepImgFile)
       .then(() => {
         console.log('hi');
       })
@@ -48,23 +50,21 @@ const ArticleCreatePage = () => {
   };
 
   const subTitle = 'font-semibold mb-24';
-  const [orderArr, setOrderArr] = useState([1]);
-  const [thumbnailImgFile, setThumbnailImgFile] = useState(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const cookingTimeRefArr = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const [cookingTime, setCookingTime] = useState(0);
   const [ingredients, setIngredient] = useState('');
   const [quantity, setQuantity] = useState(1);
 
-  const thumbnailInputRef = useRef(null);
-
-  const cookingTimeRefArr = [useRef(null), useRef(null), useRef(null), useRef(null)];
-
-  const [stepContentRef, setStepContentRef] = useState([useRef(null)]);
-  const [stepImgFileRef, setStepImgFileRef] = useState([useRef(null)]);
+  const [orderArr, setOrderArr] = useState([1]);
+  const [stepContentRef, setStepContentRef] = useState([useRef(null), useRef(null)]);
+  const [stepImgFileRef, setStepImgFileRef] = useState([useRef(null), useRef(null)]);
   const [stepContent, setStepContent] = useState(['']);
-  const [stepImgFile, setStepImgFile] = useState([null]);
+  const [stepImgFile, setStepImgFile] = useState([null, null]);
   const [stepNums, setStepNums] = useState([]);
+
+  console.log(stepImgFile);
 
   // 단게별 글자수
   const [stepContentLetterCount, setStepContentLetterCount] = useState(Array(orderArr.length).fill(0));
@@ -176,12 +176,12 @@ const ArticleCreatePage = () => {
       <div className="w-1200 mx-auto border-x border-solid border-#7F807F px-203 pt-141">
         <div className="w-792 h-354">
           <ArticleImgBlock
-            setRef={thumbnailInputRef}
-            division="thumbnail"
+            setRef={stepImgFileRef[0]}
+            division="step-content-0"
             text="대표 이미지 업로드"
             width="full"
             height="354"
-            fileSet={setThumbnailImgFile}
+            fileSet={setStepImgFile}
           />
         </div>
         <div className="flex flex-col w-full text-xl">
@@ -288,7 +288,7 @@ const ArticleCreatePage = () => {
                     <input
                       type="text"
                       id={`step-content-${value}`}
-                      ref={stepContentRef[value - 1]}
+                      ref={stepContentRef[value]}
                       className="w-full p-3 h-70"
                       placeholder="만드는 방법을 입력하세요."
                       maxLength={50}
@@ -300,7 +300,7 @@ const ArticleCreatePage = () => {
                   </div>
                   <div className="w-624 h-303">
                     <ArticleImgBlock
-                      setRef={stepImgFileRef[value - 1]}
+                      setRef={stepImgFileRef[value]}
                       division={`step-img-${value}`}
                       text="이미지 업로드(선택)"
                       width="624"

@@ -44,7 +44,7 @@ const ArticleImgBlock = (props) => {
         else {
           fileSet((prev) => {
             const uploadImgFile = e.dataTransfer.files[0];
-            prev[division.split('-')[2] - 1] = uploadImgFile;
+            prev[division.split('-')[2]] = uploadImgFile;
             return [...prev];
           });
         }
@@ -86,7 +86,7 @@ const ArticleImgBlock = (props) => {
           else {
             fileSet((prev) => {
               const uploadImgFile = e.target.files[0];
-              prev[division.split('-')[2] - 1] = uploadImgFile;
+              prev[division.split('-')[2]] = uploadImgFile;
               return [...prev];
             });
           }

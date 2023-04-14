@@ -1,10 +1,9 @@
-export default async function newpostAPI(recipeCreateReq, thumbnailImgFile, stepImgFile, token) {
+export default async function newpostAPI(recipeCreateReq, stepImgFile) {
   console.log(recipeCreateReq);
 
   const data = new FormData();
 
   data.append('recipeCreateReq', new Blob([JSON.stringify(recipeCreateReq)], { type: 'application/json' }));
-  data.append('file', thumbnailImgFile);
 
   stepImgFile.forEach((file) => {
     if (file) {
