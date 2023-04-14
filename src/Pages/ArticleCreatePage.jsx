@@ -13,7 +13,6 @@ const ArticleCreatePage = () => {
       recipe_steps: stepContent,
       time: cookingTime.toString(),
       title,
-      stepNums,
     };
 
     console.log(stepImgFile);
@@ -22,8 +21,8 @@ const ArticleCreatePage = () => {
       .then(() => {
         console.log('hi');
       })
-      .catch(() => {
-        console.log('error');
+      .catch((e) => {
+        console.log(e);
       });
   };
 
@@ -57,21 +56,16 @@ const ArticleCreatePage = () => {
   const [ingredients, setIngredient] = useState('');
   const [quantity, setQuantity] = useState(1);
 
-  const [orderArr, setOrderArr] = useState([1]);
-  const [stepContentRef, setStepContentRef] = useState([useRef(null), useRef(null)]);
+  const [stepContentRef, setStepContentRef] = useState([useRef(null)]);
   const [stepImgFileRef, setStepImgFileRef] = useState([useRef(null), useRef(null)]);
   const [stepContent, setStepContent] = useState(['']);
   const [stepImgFile, setStepImgFile] = useState([null, null]);
-  const [stepNums, setStepNums] = useState([]);
-
-  console.log(stepImgFile);
 
   // 단게별 글자수
-  const [stepContentLetterCount, setStepContentLetterCount] = useState(Array(orderArr.length).fill(0));
+  const [stepContentLetterCount, setStepContentLetterCount] = useState(Array(stepContent.length).fill(0));
 
   // 요리 단계 추가 버튼
   const addStepBtnHandler = () => {
-    const lastIdx = orderArr.length + 1;
     setStepContentRef((prev) => {
       const newRefs = [...prev];
       newRefs.push(createRef(null));
@@ -87,9 +81,6 @@ const ArticleCreatePage = () => {
     });
     setStepImgFile((prev) => {
       return [...prev, null];
-    });
-    setOrderArr((prev) => {
-      return [...prev, lastIdx];
     });
   };
 
@@ -278,40 +269,42 @@ const ArticleCreatePage = () => {
             // onChange={stepChangeHandler}
           >
             <div className={subTitle}>만드는 방법</div>
-            {orderArr.map((value) => (
-              <div className="flex flex-row" key={`div-${value}`}>
-                <div className="bg-#AEAFAE w-70 h-70 rounded-50 text-prettywhite flex items-center justify-center mr-24 text-30">
-                  {value}
-                </div>
-                <div className="text-md">
-                  <div className="flex items-center justify-between">
-                    <input
-                      type="text"
-                      id={`step-content-${value}`}
-                      ref={stepContentRef[value]}
-                      className="w-full p-3 h-70"
-                      placeholder="만드는 방법을 입력하세요."
-                      maxLength={50}
-                      onChange={(e) => {
-                        stepChangeHandler(e, value - 1);
-                      }}
-                    />
-                    <div className="inline">{/* {stepContentLetterCount[value - 1]}/50 */}</div>
+            {stepImgFile.map(
+              (value, idx) =>
+                idx != 0 && (
+                  <div className="flex flex-row" key={`div-${idx}`}>
+                    <div className="bg-#AEAFAE w-70 h-70 rounded-50 text-prettywhite flex items-center justify-center mr-24 text-30">
+                      {idx}
+                    </div>
+                    <div className="text-md">
+                      <div className="flex items-center justify-between">
+                        <input
+                          type="text"
+                          id={`step-content-${idx}`}
+                          ref={stepContentRef[idx]}
+                          className="w-full p-3 h-70"
+                          placeholder="만드는 방법을 입력하세요."
+                          maxLength={50}
+                          onChange={(e) => {
+                            stepChangeHandler(e, idx - 1);
+                          }}
+                        />
+                        <div className="inline">{/* {stepContentLetterCount[value - 1]}/50 */}</div>
+                      </div>
+                      <div className="w-624 h-303">
+                        <ArticleImgBlock
+                          setRef={stepImgFileRef[idx]}
+                          division={`step-img-${idx}`}
+                          text="이미지 업로드(선택)"
+                          width="624"
+                          height="303"
+                          fileSet={setStepImgFile}
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-624 h-303">
-                    <ArticleImgBlock
-                      setRef={stepImgFileRef[value]}
-                      division={`step-img-${value}`}
-                      text="이미지 업로드(선택)"
-                      width="624"
-                      height="303"
-                      fileSet={setStepImgFile}
-                      setStepNums={setStepNums}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
+                ),
+            )}
             <div className="flex justify-end">
               <button
                 type="button"
