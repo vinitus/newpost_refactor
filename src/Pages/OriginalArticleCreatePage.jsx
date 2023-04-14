@@ -2,7 +2,7 @@
 /* eslint-disable no-alert */
 import React, { createRef, useRef, useState } from 'react';
 import ArticleImgBlock from '../Components/ArticleImgBlock';
-import newpostAPI from '../api/newpostAPI';
+import originNewpostAPI from '../API/originNewpostAPI';
 
 const ArticleCreatePage = () => {
   const handleConfirm = () => {
@@ -16,7 +16,7 @@ const ArticleCreatePage = () => {
       stepNums,
     };
 
-    newpostAPI(jsonData, thumbnailImgFile, stepImgFile)
+    originNewpostAPI(jsonData, thumbnailImgFile, stepImgFile)
       .then(() => {
         console.log('hi');
       })
