@@ -3,10 +3,11 @@ import React, { useRef, useState } from 'react';
 /** @params division, size, text */
 const ArticleImgBlock = (props) => {
   const [previewImgSrc, setPreviewImgSrc] = useState('');
-  const { division, width, height, text, setRef, fileSet, setStepNums } = props;
+  const { division, width, height, text, fileSet } = props;
 
   const opacityRef = useRef();
   const previewImgRef = useRef();
+  const setRef = useRef();
 
   const inputButtonHandler = () => {
     setRef.current?.click();
@@ -48,13 +49,7 @@ const ArticleImgBlock = (props) => {
             return [...prev];
           });
         }
-        if (setStepNums) {
-          setStepNums((prev) => {
-            const newArr = [...prev, Number(division.split('-')[2])];
-            newArr.sort();
-            return newArr;
-          });
-        }
+
         const reader = new FileReader();
         reader.onload = ({ target }) => {
           setPreviewImgSrc(target.result);
@@ -88,13 +83,6 @@ const ArticleImgBlock = (props) => {
               const uploadImgFile = e.target.files[0];
               prev[division.split('-')[2]] = uploadImgFile;
               return [...prev];
-            });
-          }
-          if (setStepNums) {
-            setStepNums((prev) => {
-              const newArr = [...prev, Number(division.split('-')[2])];
-              newArr.sort();
-              return newArr;
             });
           }
           const reader = new FileReader();

@@ -56,8 +56,6 @@ const ArticleCreatePage = () => {
   const [ingredients, setIngredient] = useState('');
   const [quantity, setQuantity] = useState(1);
 
-  const [stepContentRef, setStepContentRef] = useState([useRef(null)]);
-  const [stepImgFileRef, setStepImgFileRef] = useState([useRef(null), useRef(null)]);
   const [stepContent, setStepContent] = useState(['']);
   const [stepImgFile, setStepImgFile] = useState([null, null]);
 
@@ -66,16 +64,6 @@ const ArticleCreatePage = () => {
 
   // 요리 단계 추가 버튼
   const addStepBtnHandler = () => {
-    setStepContentRef((prev) => {
-      const newRefs = [...prev];
-      newRefs.push(createRef(null));
-      return newRefs;
-    });
-    setStepImgFileRef((prev) => {
-      const newRefs = [...prev];
-      newRefs.push(createRef(null));
-      return newRefs;
-    });
     setStepContent((prev) => {
       return [...prev, null];
     });
@@ -167,7 +155,6 @@ const ArticleCreatePage = () => {
       <div className="w-1200 mx-auto border-x border-solid border-#7F807F px-203 pt-141">
         <div className="w-792 h-354">
           <ArticleImgBlock
-            setRef={stepImgFileRef[0]}
             division="step-content-0"
             text="대표 이미지 업로드"
             width="full"
@@ -281,7 +268,6 @@ const ArticleCreatePage = () => {
                         <input
                           type="text"
                           id={`step-content-${idx}`}
-                          ref={stepContentRef[idx]}
                           className="w-full p-3 h-70"
                           placeholder="만드는 방법을 입력하세요."
                           maxLength={50}
@@ -293,7 +279,6 @@ const ArticleCreatePage = () => {
                       </div>
                       <div className="w-624 h-303">
                         <ArticleImgBlock
-                          setRef={stepImgFileRef[idx]}
                           division={`step-img-${idx}`}
                           text="이미지 업로드(선택)"
                           width="624"
