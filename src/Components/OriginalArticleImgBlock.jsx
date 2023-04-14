@@ -71,7 +71,7 @@ const ArticleImgBlock = (props) => {
         }}
         ref={opacityRef}
       >
-        <img src="./assets/plus.png" alt="plus" />
+        <img src="./plus.png" alt="plus" />
       </button>
       <div className="mt-20 text-2xl" ref={opacityRef}>
         {text}
